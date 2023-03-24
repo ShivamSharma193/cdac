@@ -1,0 +1,123 @@
+# Database Technologies Assignment3
+
+Q. Create a Table with name Hostel with columns 
+ID, HostelName, Number of Occupancy, Owner Name, Rent  and Enter 10-15 Records.
+
+1. Show all the records
+2. Sort the Table in Ascending order of Rent  
+3. Print Only 5 Records in  Descending order of Rent
+4. Add a Coloumn "Move in Data" with data type date in format yyyy-mm-dd
+5. Select the records that are available earliest.
+
+mysql> CREATE TABLE Hostel ( ID int, HostelName varchar(20), Occupancy int , OwnerName varchar(25), Rent float(2)) ;
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> INSERT INTO Hostel VALUES (01, "Chitra Hostel",3,"Chitra Wagh", 5000), (02, "Vishwa Hostel",4, "Vishwamitra Patil", 8000), (03, "Akash Hostel",3, "Akash Jadhav", 45764), (04, "Rohan Hostel", 2, "Rohan Dehankar", 4534), (05, "Suraj Hostel",3 , "Suraj Patil",4235.56), (07, "Punit Hostel", 2, "Punit Nagpure", 8865), (08, "Ajay Hostel", 4, "Abhay Patil", 6457), (09, "Narendra Hostel", 2, "Narendra Modak", 7568), (10, "Sujit Hostel", 3, "Sujit Phadtare", 57657) ;
+Query OK, 9 rows affected (0.11 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+
+mysql> SELECT * FROM Hostel ;
++----+-----------------+-----------+-------------------+---------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent    |
++----+-----------------+-----------+-------------------+---------+
+|  1 | Chitra Hostel   |         3 | Chitra Wagh       |    5000 |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |    8000 |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      |   45764 |
+|  4 | Rohan Hostel    |         2 | Rohan Dehankar    |    4534 |
+|  5 | Suraj Hostel    |         3 | Suraj Patil       | 4235.56 |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |    8865 |
+|  8 | Ajay Hostel     |         4 | Abhay Patil       |    6457 |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |    7568 |
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    |   57657 |
++----+-----------------+-----------+-------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Hostel ORDER BY Rent ;
++----+-----------------+-----------+-------------------+---------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent    |
++----+-----------------+-----------+-------------------+---------+
+|  5 | Suraj Hostel    |         3 | Suraj Patil       | 4235.56 |
+|  4 | Rohan Hostel    |         2 | Rohan Dehankar    |    4534 |
+|  1 | Chitra Hostel   |         3 | Chitra Wagh       |    5000 |
+|  8 | Ajay Hostel     |         4 | Abhay Patil       |    6457 |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |    7568 |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |    8000 |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |    8865 |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      |   45764 |
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    |   57657 |
++----+-----------------+-----------+-------------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Hostel ORDER BY Rent DESC LIMIT 5;
++----+-----------------+-----------+-------------------+-------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent  |
++----+-----------------+-----------+-------------------+-------+
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    | 57657 |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      | 45764 |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |  8865 |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |  8000 |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |  7568 |
++----+-----------------+-----------+-------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Hostel ADD MoveInDate date ;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Hostel ;
++----+-----------------+-----------+-------------------+---------+------------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent    | MoveInDate |
++----+-----------------+-----------+-------------------+---------+------------+
+|  1 | Chitra Hostel   |         3 | Chitra Wagh       |    5000 | NULL       |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |    8000 | NULL       |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      |   45764 | NULL       |
+|  4 | Rohan Hostel    |         2 | Rohan Dehankar    |    4534 | NULL       |
+|  5 | Suraj Hostel    |         3 | Suraj Patil       | 4235.56 | NULL       |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |    8865 | NULL       |
+|  8 | Ajay Hostel     |         4 | Abhay Patil       |    6457 | NULL       |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |    7568 | NULL       |
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    |   57657 | NULL       |
++----+-----------------+-----------+-------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Hostel ORDER BY MoveInDate ;
++----+-----------------+-----------+-------------------+---------+------------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent    | MoveInDate |
++----+-----------------+-----------+-------------------+---------+------------+
+|  1 | Chitra Hostel   |         3 | Chitra Wagh       |    5000 | 2023-03-25 |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |    8000 | 2023-03-27 |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      |   45764 | 2023-03-28 |
+|  4 | Rohan Hostel    |         2 | Rohan Dehankar    |    4534 | 2023-03-28 |
+|  5 | Suraj Hostel    |         3 | Suraj Patil       | 4235.56 | 2023-04-01 |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |    8865 | 2023-04-02 |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |    7568 | 2023-04-10 |
+|  8 | Ajay Hostel     |         4 | Abhay Patil       |    6457 | 2023-04-12 |
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    |   57657 | 2023-04-12 |
++----+-----------------+-----------+-------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Hostel ORDER BY MoveInDate DESC;
++----+-----------------+-----------+-------------------+---------+------------+
+| ID | HostelName      | Occupancy | OwnerName         | Rent    | MoveInDate |
++----+-----------------+-----------+-------------------+---------+------------+
+|  8 | Ajay Hostel     |         4 | Abhay Patil       |    6457 | 2023-04-12 |
+| 10 | Sujit Hostel    |         3 | Sujit Phadtare    |   57657 | 2023-04-12 |
+|  9 | Narendra Hostel |         2 | Narendra Modak    |    7568 | 2023-04-10 |
+|  7 | Punit Hostel    |         2 | Punit Nagpure     |    8865 | 2023-04-02 |
+|  5 | Suraj Hostel    |         3 | Suraj Patil       | 4235.56 | 2023-04-01 |
+|  3 | Akash Hostel    |         3 | Akash Jadhav      |   45764 | 2023-03-28 |
+|  4 | Rohan Hostel    |         2 | Rohan Dehankar    |    4534 | 2023-03-28 |
+|  2 | Vishwa Hostel   |         4 | Vishwamitra Patil |    8000 | 2023-03-27 |
+|  1 | Chitra Hostel   |         3 | Chitra Wagh       |    5000 | 2023-03-25 |
++----+-----------------+-----------+-------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM Hostel ORDER BY MoveInDate LIMIT 1;
++----+---------------+-----------+-------------+------+------------+
+| ID | HostelName    | Occupancy | OwnerName   | Rent | MoveInDate |
++----+---------------+-----------+-------------+------+------------+
+|  1 | Chitra Hostel |         3 | Chitra Wagh | 5000 | 2023-03-25 |
++----+---------------+-----------+-------------+------+------------+
+1 row in set (0.00 sec)
