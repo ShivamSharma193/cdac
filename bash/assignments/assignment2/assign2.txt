@@ -1,0 +1,190 @@
+#Q1-
+ls */ or echo */
+
+#Q2 -------------------------------------------------------------------
+find ./ -type d | tee dir |  wc -l ; cat dir
+
+#Q3 ------------------------------------------------------------------
+w *itp9*
+
+#Q4 -----------------------------------------------------------------
+last itp9
+
+#Q5 -----------------------------------------------------------------
+var1="Black"
+echo "$var1 belt is associated with karate"
+#Q6 ------------------------------------------------------------------
+
+read -p "Enter a filename " file
+read -p "Enter an integer " x
+
+head -n $x  ${file}
+
+if  test -f "$file"  ;then
+	echo "File exists"
+else
+	echo "File does not exist"
+fi
+
+if [ -r "$file" ] ; then
+	echo "File is readable"
+else 
+	echo "File is not readable"
+fi
+
+#Q7 -----------------------------------------------------------------
+
+PS3="Select which operation you want to do "
+select op in "Make a file" "Display contents" "Copy the file" "Rename the file" "Delete the file" "Exit"
+do
+	echo -e "You hase selected $op\n"
+
+	case $op in
+		"Make a file")
+			read -p "Enter a filename " file 
+			if [  -f $file ] ; then
+				echo -e "File already exists\n"
+			else
+				read -p "Enter some data " data
+				echo "$data" >$file 
+#				read tmp
+				cat $file 
+				echo -e "Sucess\n"
+			fi
+	;;
+		"Display contents")
+			read -p "Enter a file name " file
+			if [ -f $file ] ; then
+				echo "File content start from nextline "
+				cat $file
+				echo -e "\n File content shown successfully\n"
+			else 
+				echo -e "File does not exists.\n"
+			fi
+	;;
+		"Copy the file")
+			read -p "Enter a source file " sfile
+			if [[ -f $sfile && -r $sfile ]] ; then
+				read -p "Enter a target file " tfile
+				if [ ! -f $tfile ] ; then
+					cp $sfile $tfile
+					echo -e "$sfile copied to $tfile Successfully\n"
+				fi
+			else 
+				echo -e "Source file does not exist\n"
+			fi
+	;;
+		"Rename the file")
+			read -p "Enter a source file " sfile
+			if [[ -f $sfile && -r $sfile ]] ; then
+				read -p "Enter a target file " tfile
+				if [ ! -f $tfile ] ; then
+					mv $sfile $tfile
+					echo -e "File $sfile renamed to $tfile  Successfully \n"
+				fi
+			else
+				echo -e "Source file does not exist\n"
+			fi
+
+	;;
+		"Delete the file")
+			read -p "Enter a filename " file
+			if [ -f $file ] ; then
+				if [ -w $file ] ; then
+					read -p "Do you want to delete this file : $file (y or n) " ans
+					if [ "$ans" = "y" ] ; then
+						rm $file
+						echo -e "File removed Successfully \n"
+					fi
+				fi
+			else
+				echo -e "File does not exist\n"
+			fi
+	;;
+		*)
+			echo "Exit"
+			break
+	;;
+
+
+	esac
+
+done
+
+
+#Q8 --------------------------------------------------------------------
+#Arithmatic Calculator
+
+read  -p "Enter two numbers on which operations are to be performed " x y
+PS3="Enter operation to be performed "
+
+select operation in "Addition" "Substraction" "Multiplication" "Division" "Exit"
+do
+	echo "The operation you selected is $operation "
+break
+done
+
+if [ "$operation" == "Addition" ] ; then
+	echo "$x + $y" |bc 
+elif [ "$operation" == "Substraction" ] ; then
+	echo "$x - $y" |bc 
+elif [ "$operation" == "Multiplication" ] ; then
+	echo "$x * $y" |bc 
+elif [ "$operation" == "Division" ]; then
+	echo "scale=2; $x / $y" |bc 
+elif [ "$operation" == "Exit" ];then
+	echo "Exiting the program"
+fi
+
+
+#Q9 ---------------------------------------------------------
+#Remove a file taken as command line argument after taking the proper backup 
+# of file in /home/user1/backup directory
+
+read -p "Enter filename " file
+cp $file /home/user1/backup/${file}.backup
+rm $file
+
+#Q10 --------------------------------------------------------
+#Write a scipt that will accept a strin from the user/ Copy all contents of the file 
+# without that string, Also display number of characters, lines and words.
+read -p "Enter a string " str
+read -p "Enter file to be copied " file
+
+sed  "s/${str}//g" "$file" > `echo ${file}.out`
+echo "File saved as ${file}.out"
+
+#Q11 ---------------------------------------------------------
+echo "    *"
+echo "*** ******"
+echo "    *"
+
+#Q12 ---------------------------------------------------------
+# Calculate factorial
+read -p "Enter an Integer " x
+echo -n "The factorial of $x is "
+fact=$x
+
+while [ $x -gt 1 ]
+do
+    fact=`echo "$fact*($x-1)" | bc`
+    x=$(( x-1 ))
+done
+echo  $fact
+
+
+#Q13 -----------------------------------------------------------
+echo "*"
+echo "**"
+echo "***"
+echo "****"
+
+
+#Q14 ------------------------------------------------------------
+# Check whether today is a working day or not
+# Working day - Mon-Fri
+day=`date +%A`
+
+if [[ "$day"="Saturday" || "$day"="Sunday" ]]; then
+    echo "It is not a working day"
+fi

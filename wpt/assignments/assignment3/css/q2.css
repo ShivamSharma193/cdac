@@ -1,0 +1,13 @@
+* {
+    background-color: rgb(143, 171, 236);
+}
+input {
+    background-color: aliceblue;
+}
+.btn{
+    border-radius: 10cm;
+    background-color: green;
+}
+div{
+    text-align: center;
+}

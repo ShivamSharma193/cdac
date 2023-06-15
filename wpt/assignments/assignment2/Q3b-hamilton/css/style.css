@@ -1,0 +1,72 @@
+header>h1{
+    color: teal;
+    margin-bottom: 0%;
+}
+ul#menu li {
+    display : inline ;
+}
+
+#menu {
+    margin-top: 0%;
+    background-color: rgb(56, 170, 170);
+    color: white;
+    padding-inline-start: 2%;
+    padding: 1%;  
+}
+ul#menu li{
+    padding: 1%;
+}
+ul#menu a:link {color:white;}
+ul#menu a:visited {color:rgb(54, 97, 44)}
+ul#menu a {
+    text-decoration: none;   
+}
+
+section#schedule div{
+     text-align: right;
+}
+
+table#schTable>thead {
+    color: white;
+    background-color: rgb(56, 170, 170);
+}
+table#schTable tbody th {
+    background-color: rgb(255, 233, 173);
+    text-align: left;
+    padding-left: 1%;
+    padding-right: 15px;
+}
+div#notice{
+    width: 35%;
+    height: 4cm;
+    padding-top: 1%;
+    position: fixed;
+    margin: 0.8cm;
+}
+.notices {
+    display: inline;
+}
+div#capacity{
+    position: fixed;
+    right: 1cm;
+    width: 42%;
+    margin-top: 0.5cm;
+    height: 4cm;
+    
+    border: 5px solid rgb(255, 170, 255);
+    border-radius: 0.51cm;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    box-shadow: 3px 3px rgb(211, 163, 171);
+}
+
+footer{
+    position: fixed;
+    bottom : 0px ;
+    text-align: center;
+    background-color: rgb(56, 170, 170);
+    width: 100%;
+    color: white;
+    padding: 0.5%;
+
+}
