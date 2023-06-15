@@ -1,0 +1,141 @@
+mysql> SELECT class, MAX(marks) OVER(PARTITION BY class) AS "marks_max" FROM student ;
++-------+-----------+
+| class | marks_max |
++-------+-----------+
+| DAC   |     95.00 |
+| DAC   |     95.00 |
+| DAC   |     95.00 |
+| DAC   |     95.00 |
+| DAC   |     95.00 |
+| DAC   |     95.00 |
+| DAI   |     99.99 |
+| DAI   |     99.99 |
+| DBDA  |     85.90 |
+| DBDA  |     85.90 |
+| DBDA  |     85.90 |
+| DBDA  |     85.90 |
++-------+-----------+
+12 rows in set (0.00 sec)
+
+
+mysql> SELECT name,marks, class, MAX(marks) OVER (PARTITION BY class) AS "max", marks-MAX(marks) OVER(PARTITION BY class) AS "diff" FROM student ;
++---------+-------+-------+-------+--------+
+| name    | marks | class | max   | diff   |
++---------+-------+-------+-------+--------+
+| Suraj   | 95.00 | DAC   | 95.00 |   0.00 |
+| Sajid   | 45.00 | DAC   | 95.00 | -50.00 |
+| Ron     | 45.05 | DAC   | 95.00 | -49.95 |
+| Rohan   | 45.54 | DAC   | 95.00 | -49.46 |
+| Suhana  | 25.20 | DAC   | 95.00 | -69.80 |
+| Aatish  | 87.00 | DAC   | 95.00 |  -8.00 |
+| Akansha | 58.00 | DAI   | 99.99 | -41.99 |
+| Surya   | 99.99 | DAI   | 99.99 |   0.00 |
+| Ali     | 45.12 | DBDA  | 85.90 | -40.78 |
+| Abhi    | 85.90 | DBDA  | 85.90 |   0.00 |
+| Rashmi  | 65.00 | DBDA  | 85.90 | -20.90 |
+| Rahul   | 24.00 | DBDA  | 85.90 | -61.90 |
++---------+-------+-------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name,marks, class, MAX(marks) OVER (PARTITION BY class) AS "max", round(marks-MAX(marks
+) OVER(PARTITION BY class), 2) AS "diff" FROM student ;
++---------+-------+-------+-------+--------+
+| name    | marks | class | max   | diff   |
++---------+-------+-------+-------+--------+
+| Suraj   | 95.00 | DAC   | 95.00 |      0 |
+| Sajid   | 45.00 | DAC   | 95.00 |    -50 |
+| Ron     | 45.05 | DAC   | 95.00 | -49.95 |
+| Rohan   | 45.54 | DAC   | 95.00 | -49.46 |
+| Suhana  | 25.20 | DAC   | 95.00 |  -69.8 |
+| Aatish  | 87.00 | DAC   | 95.00 |     -8 |
+| Akansha | 58.00 | DAI   | 99.99 | -41.99 |
+| Surya   | 99.99 | DAI   | 99.99 |      0 |
+| Ali     | 45.12 | DBDA  | 85.90 | -40.78 |
+| Abhi    | 85.90 | DBDA  | 85.90 |      0 |
+| Rashmi  | 65.00 | DBDA  | 85.90 |  -20.9 |
+| Rahul   | 24.00 | DBDA  | 85.90 |  -61.9 |
++---------+-------+-------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, marks, class, AVG(marks) OVER (PARTITION BY class) AS "Avg_Marks", round(marks -
+AVG(marks) OVER (PARTITION BY class), 2) AS "Diff" FROM student ;
++---------+-------+-------+-----------+--------+
+| name    | marks | class | Avg_Marks | Diff   |
++---------+-------+-------+-----------+--------+
+| Suraj   | 95.00 | DAC   | 57.131667 |  37.87 |
+| Sajid   | 45.00 | DAC   | 57.131667 | -12.13 |
+| Ron     | 45.05 | DAC   | 57.131667 | -12.08 |
+| Rohan   | 45.54 | DAC   | 57.131667 | -11.59 |
+| Suhana  | 25.20 | DAC   | 57.131667 | -31.93 |
+| Aatish  | 87.00 | DAC   | 57.131667 |  29.87 |
+| Akansha | 58.00 | DAI   | 78.994999 | -20.99 |
+| Surya   | 99.99 | DAI   | 78.994999 |  20.99 |
+| Ali     | 45.12 | DBDA  | 55.005000 |  -9.89 |
+| Abhi    | 85.90 | DBDA  | 55.005000 |   30.9 |
+| Rashmi  | 65.00 | DBDA  | 55.005000 |   9.99 |
+| Rahul   | 24.00 | DBDA  | 55.005000 | -31.01 |
++---------+-------+-------+-----------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, marks, class, MIN(marks) OVER (PARTITION BY class) AS "Min_Marks", round(marks -
+Min(marks) OVER (PARTITION BY class), 2)*100/Min(marks) OVER (PARTITION BY class) AS "min_chage_percent" FROM student ;
++---------+-------+-------+-----------+--------------------+
+| name    | marks | class | Min_Marks | min_chage_percent  |
++---------+-------+-------+-----------+--------------------+
+| Suraj   | 95.00 | DAC   |     25.20 |  276.9841185983289 |
+| Sajid   | 45.00 | DAC   |     25.20 |  78.57142619264917 |
+| Ron     | 45.05 | DAC   |     25.20 |  78.76983888505485 |
+| Rohan   | 45.54 | DAC   |     25.20 |  80.71428327063052 |
+| Suhana  | 25.20 | DAC   |     25.20 |                  0 |
+| Aatish  | 87.00 | DAC   |     25.20 | 245.23808781342012 |
+| Akansha | 58.00 | DAI   |     58.00 |                  0 |
+| Surya   | 99.99 | DAI   |     58.00 |  72.39655172413794 |
+| Ali     | 45.12 | DBDA  |     24.00 |                 88 |
+| Abhi    | 85.90 | DBDA  |     24.00 |  257.9166666666667 |
+| Rashmi  | 65.00 | DBDA  |     24.00 | 170.83333333333334 |
+| Rahul   | 24.00 | DBDA  |     24.00 |                  0 |
++---------+-------+-------+-----------+--------------------+
+12 rows in set (0.00 sec)
+
+
+mysql> SELECT name, marks, class, MIN(marks) OVER (PARTITION BY class) AS "Min_Marks", round(marks -
+Min(marks) OVER (PARTITION BY class), 2)*100/(Min(marks) OVER (PARTITION BY class)) AS "min_chage_percent" FROM student ;
++---------+-------+-------+-----------+--------------------+
+| name    | marks | class | Min_Marks | min_chage_percent  |
++---------+-------+-------+-----------+--------------------+
+| Suraj   | 95.00 | DAC   |     25.20 |  276.9841185983289 |
+| Sajid   | 45.00 | DAC   |     25.20 |  78.57142619264917 |
+| Ron     | 45.05 | DAC   |     25.20 |  78.76983888505485 |
+| Rohan   | 45.54 | DAC   |     25.20 |  80.71428327063052 |
+| Suhana  | 25.20 | DAC   |     25.20 |                  0 |
+| Aatish  | 87.00 | DAC   |     25.20 | 245.23808781342012 |
+| Akansha | 58.00 | DAI   |     58.00 |                  0 |
+| Surya   | 99.99 | DAI   |     58.00 |  72.39655172413794 |
+| Ali     | 45.12 | DBDA  |     24.00 |                 88 |
+| Abhi    | 85.90 | DBDA  |     24.00 |  257.9166666666667 |
+| Rashmi  | 65.00 | DBDA  |     24.00 | 170.83333333333334 |
+| Rahul   | 24.00 | DBDA  |     24.00 |                  0 |
++---------+-------+-------+-----------+--------------------+
+12 rows in set (0.01 sec)
+
+
+mysql> SELECT name, marks, class, MAX(marks) OVER (PARTITION BY class) AS "Max_Marks", round(marks -
+MAX(marks) OVER (PARTITION BY class), 2)*100/(MAX(marks) OVER (PARTITION BY class)) AS "max_chage_percent" FROM student ;
++---------+-------+-------+-----------+---------------------+
+| name    | marks | class | Max_Marks | max_chage_percent   |
++---------+-------+-------+-----------+---------------------+
+| Suraj   | 95.00 | DAC   |     95.00 |                   0 |
+| Sajid   | 45.00 | DAC   |     95.00 |  -52.63157894736842 |
+| Ron     | 45.05 | DAC   |     95.00 | -52.578947368421055 |
+| Rohan   | 45.54 | DAC   |     95.00 |  -52.06315789473684 |
+| Suhana  | 25.20 | DAC   |     95.00 |  -73.47368421052632 |
+| Aatish  | 87.00 | DAC   |     95.00 |  -8.421052631578947 |
+| Akansha | 58.00 | DAI   |     99.99 | -41.994200317124616 |
+| Surya   | 99.99 | DAI   |     99.99 |                   0 |
+| Ali     | 45.12 | DBDA  |     85.90 |  -47.47380590873948 |
+| Abhi    | 85.90 | DBDA  |     85.90 |                   0 |
+| Rashmi  | 65.00 | DBDA  |     85.90 | -24.330616564312287 |
+| Rahul   | 24.00 | DBDA  |     85.90 |  -72.06053422636032 |
++---------+-------+-------+-----------+---------------------+
+12 rows in set (0.00 sec)
+

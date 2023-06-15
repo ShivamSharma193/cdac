@@ -1,0 +1,7 @@
+{name:"Ajay", matches:105, catches:69 },
+{name:"Vijay", matches:16, catches:91,wicket,s: 32 , bow_avg:22.32  },
+{name:"Amar", matches:21, catches:11,wickets: 32, bow_avg: 11.30 },
+{name:"Ram", matches:115, catches:96,wickets:39 , bow_avg:19.55  },
+{name:"Sajid", matches:112, catches:169,  stump:91 },
+{name:"Suraj", matches:205, catches:161,wickets: 11 , bow_avg: 31.05  }
+

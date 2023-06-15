@@ -1,0 +1,31 @@
+# Database Technologies DBTassignment1
+
+Q1. Create Database named College
+CREATE DATABASE college ;
+
+Q2. Create a table named student in college database with following structure roll, name, class, marks, age with respective datatypes.
+
+USE college
+CREATE TABLE  student ( Roll int,  Name varchar(255), Course varchar(10), Marks float(2), Age int);
+
+Q3. Check the Structure of the table.
+DESCRIBE student ; (alternatively, DESC student;)
+
+Q4. Alter the dataype of marks from float to int
+ALTER TABLE student MODIFY COLUMN Marks int ;
+
+Q5. Alter the table to remove column age.
+ALTER TABLE student DROP COLUMN Age ;
+
+Q6. Show all the table in Database college
+SHOW TABLES ;
+
+Q7. Truncate the table student
+TRUNCATE TABLE student ;
+
+Q8. Drop the table and database
+DROP TABLE student ;
+DROP DATABASE college_rohan
+
+
+

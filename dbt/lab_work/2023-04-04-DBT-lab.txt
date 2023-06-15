@@ -1,0 +1,465 @@
+DATE : 2023-04-04
+Questions
+1. Those who play both games 
+
+
+mysql> CREATE TABLE football (id int, name varchar(15)) ;
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> CREATE TABLE cricket (id int, name varchar(15)) ; 
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> CREATE TABLE cricket (
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> name VARCHAR(30) NOT NULL ,
+    -> PRIMARY KEY(id)
+    -> );
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> CREATE TABLE football ( id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30) NOT NULL , PRIMARY KE
+Y(id) );
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> INSERT INTO cricket (name) VALUES ("Rohan"), ("Ashish"),("Pradeep"),("Amar"),("Rohit"),("Mahendra"),("Sujit"),("Arpit"),("Sohail") ;
+Query OK, 9 rows affected (0.10 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM cricket ;
++----+----------+
+| id | name     |
++----+----------+
+|  1 | Suraj    |
+|  2 | Rohan    |
+|  3 | Ashish   |
+|  4 | Pradeep  |
+|  5 | Amar     |
+|  6 | Rohit    |
+|  7 | Mahendra |
+|  8 | Sujit    |
+|  9 | Arpit    |
+| 10 | Sohail   |
++----+----------+
+10 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO football (name) VALUES ("Rohan"), ("Ankush"),("Kundan"),("Khushil"),("Rakesh"),("Mahendra"),("Sujit"),("Akash"),("Arjun") ;
+Query OK, 9 rows affected (0.09 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM football ;
++----+----------+
+| id | name     |
++----+----------+
+|  1 | Rohan    |
+|  2 | Ankush   |
+|  3 | Kundan   |
+|  4 | Khushil  |
+|  5 | Rakesh   |
+|  6 | Mahendra |
+|  7 | Sujit    |
+|  8 | Akash    |
+|  9 | Arjun    |
++----+----------+
+9 rows in set (0.00 sec)
+
+
+Question : People who play  both games  -----------------------
+mysql> Select * FROM football INNER JOIN cricket ON football.name=cricket.name ;
++----+----------+----+----------+
+| id | name     | id | name     |
++----+----------+----+----------+
+|  1 | Rohan    |  2 | Rohan    |
+|  6 | Mahendra |  7 | Mahendra |
+|  7 | Sujit    |  8 | Sujit    |
++----+----------+----+----------+
+3 rows in set (0.00 sec)
+
+
+
+Question : People who play cricket or football but not only football
+mysql> SELECT * FROM cricket LEFT JOIN football ON cricket.name=football.name ;
++----+----------+------+----------+
+| id | name     | id   | name     |
++----+----------+------+----------+
+|  1 | Suraj    | NULL | NULL     |
+|  2 | Rohan    |    1 | Rohan    |
+|  3 | Ashish   | NULL | NULL     |
+|  4 | Pradeep  | NULL | NULL     |
+|  5 | Amar     | NULL | NULL     |
+|  6 | Rohit    | NULL | NULL     |
+|  7 | Mahendra |    6 | Mahendra |
+|  8 | Sujit    |    7 | Sujit    |
+|  9 | Arpit    | NULL | NULL     |
+| 10 | Sohail   | NULL | NULL     |
++----+----------+------+----------+
+10 rows in set (0.01 sec)
+
+
+Question : People who play football but not cricket 
+mysql> SELECT * FROM football LEFT JOIN cricket ON football.name=cricket.name WHERE cricket.id IS NULL ;
++----+---------+------+------+
+| id | name    | id   | name |
++----+---------+------+------+
+|  2 | Ankush  | NULL | NULL |
+|  3 | Kundan  | NULL | NULL |
+|  4 | Khushil | NULL | NULL |
+|  5 | Rakesh  | NULL | NULL |
+|  8 | Akash   | NULL | NULL |
+|  9 | Arjun   | NULL | NULL |
++----+---------+------+------+
+6 rows in set (0.00 sec)
+
+
+Question : People who play football or cricket, but not only cricket 
+mysql> SELECT * FROM football LEFT JOIN cricket ON football.name = cricket.name ;
++----+----------+------+----------+
+| id | name     | id   | name     |
++----+----------+------+----------+
+|  1 | Rohan    |    2 | Rohan    |
+|  2 | Ankush   | NULL | NULL     |
+|  3 | Kundan   | NULL | NULL     |
+|  4 | Khushil  | NULL | NULL     |
+|  5 | Rakesh   | NULL | NULL     |
+|  6 | Mahendra |    7 | Mahendra |
+|  7 | Sujit    |    8 | Sujit    |
+|  8 | Akash    | NULL | NULL     |
+|  9 | Arjun    | NULL | NULL     |
++----+----------+------+----------+
+9 rows in set (0.00 sec)
+
+
+Question : people who play either football or Cricket (i.e. everyone)
+mysql> SELECT * FROM football  LEFT JOIN cricket ON football.name = cricket.name UNION  SELECT * FROM football RIGHT JOIN cricket ON football.name = cricket.name;
++------+----------+------+----------+
+| id   | name     | id   | name     |
++------+----------+------+----------+
+|    1 | Rohan    |    2 | Rohan    |
+|    2 | Ankush   | NULL | NULL     |
+|    3 | Kundan   | NULL | NULL     |
+|    4 | Khushil  | NULL | NULL     |
+|    5 | Rakesh   | NULL | NULL     |
+|    6 | Mahendra |    7 | Mahendra |
+|    7 | Sujit    |    8 | Sujit    |
+|    8 | Akash    | NULL | NULL     |
+|    9 | Arjun    | NULL | NULL     |
+| NULL | NULL     |    1 | Suraj    |
+| NULL | NULL     |    3 | Ashish   |
+| NULL | NULL     |    4 | Pradeep  |
+| NULL | NULL     |    5 | Amar     |
+| NULL | NULL     |    6 | Rohit    |
+| NULL | NULL     |    9 | Arpit    |
+| NULL | NULL     |   10 | Sohail   |
++------+----------+------+----------+
+16 rows in set (0.00 sec)
+
+Question : Difference between UNION and UNION ALL
+
+mysql> SELECT * FROM football  LEFT JOIN cricket ON football.name = cricket.name UNION  SELECT * FROM football RIGHT JOIN cricket ON football.name = cricket.name;
++------+----------+------+----------+
+| id   | name     | id   | name     |
++------+----------+------+----------+
+|    1 | Rohan    |    2 | Rohan    |
+|    2 | Ankush   | NULL | NULL     |
+|    3 | Kundan   | NULL | NULL     |
+|    4 | Khushil  | NULL | NULL     |
+|    5 | Rakesh   | NULL | NULL     |
+|    6 | Mahendra |    7 | Mahendra |
+|    7 | Sujit    |    8 | Sujit    |
+|    8 | Akash    | NULL | NULL     |
+|    9 | Arjun    | NULL | NULL     |
+| NULL | NULL     |    1 | Suraj    |
+| NULL | NULL     |    3 | Ashish   |
+| NULL | NULL     |    4 | Pradeep  |
+| NULL | NULL     |    5 | Amar     |
+| NULL | NULL     |    6 | Rohit    |
+| NULL | NULL     |    9 | Arpit    |
+| NULL | NULL     |   10 | Sohail   |
++------+----------+------+----------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT * FROM football  LEFT JOIN cricket ON football.name = cricket.name UNION ALL  SELECT *
+FROM football RIGHT JOIN cricket ON football.name = cricket.name;
++------+----------+------+----------+
+| id   | name     | id   | name     |
++------+----------+------+----------+
+|    1 | Rohan    |    2 | Rohan    |
+|    2 | Ankush   | NULL | NULL     |
+|    3 | Kundan   | NULL | NULL     |
+|    4 | Khushil  | NULL | NULL     |
+|    5 | Rakesh   | NULL | NULL     |
+|    6 | Mahendra |    7 | Mahendra |
+|    7 | Sujit    |    8 | Sujit    |
+|    8 | Akash    | NULL | NULL     |
+|    9 | Arjun    | NULL | NULL     |
+| NULL | NULL     |    1 | Suraj    |
+|    1 | Rohan    |    2 | Rohan    |
+| NULL | NULL     |    3 | Ashish   |
+| NULL | NULL     |    4 | Pradeep  |
+| NULL | NULL     |    5 | Amar     |
+| NULL | NULL     |    6 | Rohit    |
+|    6 | Mahendra |    7 | Mahendra |
+|    7 | Sujit    |    8 | Sujit    |
+| NULL | NULL     |    9 | Arpit    |
+| NULL | NULL     |   10 | Sohail   |
++------+----------+------+----------+
+19 rows in set (0.00 sec)
+
+Question: Cross Join 
+mysql> SELECT * FROM football CROSS JOIN cricket ;
++----+----------+----+----------+
+| id | name     | id | name     |
++----+----------+----+----------+
+|  9 | Arjun    |  1 | Suraj    |
+|  8 | Akash    |  1 | Suraj    |
+|  7 | Sujit    |  1 | Suraj    |
+|  6 | Mahendra |  1 | Suraj    |
+|  5 | Rakesh   |  1 | Suraj    |
+|  4 | Khushil  |  1 | Suraj    |
+|  3 | Kundan   |  1 | Suraj    |
+|  2 | Ankush   |  1 | Suraj    |
+|  1 | Rohan    |  1 | Suraj    |
+|  9 | Arjun    |  2 | Rohan    |
+|  8 | Akash    |  2 | Rohan    |
+|  7 | Sujit    |  2 | Rohan    |
+|  6 | Mahendra |  2 | Rohan    |
+|  5 | Rakesh   |  2 | Rohan    |
+|  4 | Khushil  |  2 | Rohan    |
+|  3 | Kundan   |  2 | Rohan    |
+|  2 | Ankush   |  2 | Rohan    |
+|  1 | Rohan    |  2 | Rohan    |
+|  9 | Arjun    |  3 | Ashish   |
+|  8 | Akash    |  3 | Ashish   |
+|  7 | Sujit    |  3 | Ashish   |
+|  6 | Mahendra |  3 | Ashish   |
+|  5 | Rakesh   |  3 | Ashish   |
+|  4 | Khushil  |  3 | Ashish   |
+|  3 | Kundan   |  3 | Ashish   |
+|  2 | Ankush   |  3 | Ashish   |
+|  1 | Rohan    |  3 | Ashish   |
+|  9 | Arjun    |  4 | Pradeep  |
+|  8 | Akash    |  4 | Pradeep  |
+|  7 | Sujit    |  4 | Pradeep  |
+|  6 | Mahendra |  4 | Pradeep  |
+|  5 | Rakesh   |  4 | Pradeep  |
+|  4 | Khushil  |  4 | Pradeep  |
+|  3 | Kundan   |  4 | Pradeep  |
+|  2 | Ankush   |  4 | Pradeep  |
+|  1 | Rohan    |  4 | Pradeep  |
+|  9 | Arjun    |  5 | Amar     |
+|  8 | Akash    |  5 | Amar     |
+|  7 | Sujit    |  5 | Amar     |
+|  6 | Mahendra |  5 | Amar     |
+|  5 | Rakesh   |  5 | Amar     |
+|  4 | Khushil  |  5 | Amar     |
+|  3 | Kundan   |  5 | Amar     |
+|  2 | Ankush   |  5 | Amar     |
+|  1 | Rohan    |  5 | Amar     |
+|  9 | Arjun    |  6 | Rohit    |
+|  8 | Akash    |  6 | Rohit    |
+|  7 | Sujit    |  6 | Rohit    |
+|  6 | Mahendra |  6 | Rohit    |
+|  5 | Rakesh   |  6 | Rohit    |
+|  4 | Khushil  |  6 | Rohit    |
+|  3 | Kundan   |  6 | Rohit    |
+|  2 | Ankush   |  6 | Rohit    |
+|  1 | Rohan    |  6 | Rohit    |
+|  9 | Arjun    |  7 | Mahendra |
+|  8 | Akash    |  7 | Mahendra |
+|  7 | Sujit    |  7 | Mahendra |
+|  6 | Mahendra |  7 | Mahendra |
+|  5 | Rakesh   |  7 | Mahendra |
+|  4 | Khushil  |  7 | Mahendra |
+|  3 | Kundan   |  7 | Mahendra |
+|  2 | Ankush   |  7 | Mahendra |
+|  1 | Rohan    |  7 | Mahendra |
+|  9 | Arjun    |  8 | Sujit    |
+|  8 | Akash    |  8 | Sujit    |
+|  7 | Sujit    |  8 | Sujit    |
+|  6 | Mahendra |  8 | Sujit    |
+|  5 | Rakesh   |  8 | Sujit    |
+|  4 | Khushil  |  8 | Sujit    |
+|  3 | Kundan   |  8 | Sujit    |
+|  2 | Ankush   |  8 | Sujit    |
+|  1 | Rohan    |  8 | Sujit    |
+|  9 | Arjun    |  9 | Arpit    |
+|  8 | Akash    |  9 | Arpit    |
+|  7 | Sujit    |  9 | Arpit    |
+|  6 | Mahendra |  9 | Arpit    |
+|  5 | Rakesh   |  9 | Arpit    |
+|  4 | Khushil  |  9 | Arpit    |
+|  3 | Kundan   |  9 | Arpit    |
+|  2 | Ankush   |  9 | Arpit    |
+|  1 | Rohan    |  9 | Arpit    |
+|  9 | Arjun    | 10 | Sohail   |
+|  8 | Akash    | 10 | Sohail   |
+|  7 | Sujit    | 10 | Sohail   |
+|  6 | Mahendra | 10 | Sohail   |
+|  5 | Rakesh   | 10 | Sohail   |
+|  4 | Khushil  | 10 | Sohail   |
+|  3 | Kundan   | 10 | Sohail   |
+|  2 | Ankush   | 10 | Sohail   |
+|  1 | Rohan    | 10 | Sohail   |
++----+----------+----+----------+
+90 rows in set (0.00 sec)
+
+
+
+#-----------------------------------------------------------------------------------------
+
+mysql> CREATE TABLE customer (id int NOT NULL AUTO_INCREMENT,  name varchar(30) NOT NULL , email varchar(50) NOT NULL, phone int , order_id int, PRIMARY KEY(id) );
+Query OK, 0 rows affected (0.32 sec)
+
+# Cant use order as name of table use orders instead.
+mysql> CREATE TABLE orders (id int NOT NULL AUTO_INCREMENT, item varchar(50) , PRIMARY KEY(id)) ;
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> ALTER TABLE orders ADD (brand varchar(50),
+    -> price int,
+    -> order_date date,
+    -> rating int);
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders
+    -> ;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| item       | varchar(50) | YES  |     | NULL    |                |
+| brand      | varchar(50) | YES  |     | NULL    |                |
+| price      | int         | YES  |     | NULL    |                |
+| order_date | date        | YES  |     | NULL    |                |
+| rating     | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+
+mysql> ALTER TABLE customer MODIFY  phone BIGINT ;
+Query OK, 0 rows affected (0.68 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO customer (name,email,phone,order_id) VALUES ("Suraj", "suraj@gmail.com", 23412341, 12),
+    -> ("Rohan", "rohan@gmail.com", 78978988, 12),
+    -> ("Ashish", "ashish@gmail.com", 45465565, 8),
+    -> ("Pradeep", "pradeep@gmail.com", 12346545, 09) ,
+    -> ("Amar", "amar@gmail.com", 11223334, 10) ,
+    -> ("Sujit", "sujit@gmail.com", 55665566, 112) ,
+    -> ("Arpit", "arpit@gmail.com", 12345678, 11) ,
+    -> ("Sohail", "sohail@gmail.com", 87454321, 143),
+    -> ("Arjun", "arjun@gmail.com", 23412311, 13);
+Query OK, 9 rows affected (0.07 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE orders ADD cust_id int ;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE orders ADD FOREIGN KEY(cust_id) REFERENCES customer(id) ;
+Query OK, 0 rows affected (1.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders ;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| item       | varchar(50) | YES  |     | NULL    |                |
+| brand      | varchar(50) | YES  |     | NULL    |                |
+| price      | int         | YES  |     | NULL    |                |
+| order_date | date        | YES  |     | NULL    |                |
+| rating     | int         | YES  |     | NULL    |                |
+| cust_id    | int         | YES  | MUL | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> desc customer ;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int         | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(30) | NO   |     | NULL    |                |
+| email    | varchar(50) | NO   |     | NULL    |                |
+| phone    | bigint      | YES  |     | NULL    |                |
+| order_id | int         | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE orders (id int NOT NULL AUTO_INCREMENT, item varchar(50) , brand varchar(50), price int, order_date date, rating int, customer_id int,  PRIMARY KEY(id), FOREIGN KEY(customer_id) REFERENCES customer(id)) ;
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> INSERT INTO orders (item,brand,price,order_date, rating, customer_id) VALUES 
+    -> ("Bag", "gucci", 23434, "2022-05-23", 5,1),
+    -> ("Shirt", "polo", 2000, "2021-06-30",3,2),
+    -> ("Shirt", "cotten_king", 2500, "2023-02-03",4,5),
+    -> ("Pant", "Allen_solly", 3000, "2023-01-05",4,6) ,
+    -> ("Shoes", "Bata", 4000, "2022-02-10",3,7) ,
+    -> ("TV", "LG", 20000, "2023-01-21",4,1) ,
+    -> ("Mobile", "Motorola", 39999, "2023-01-21",3,6) ,
+    -> ("Mobile", "Lenovo", 49999, "2023-02-23",4,9),
+    -> ("Laptop", "Dell", 75000, "2023-03-01",5,3),
+    -> ("Pant", "Allen_solly", 3000, "2023-01-02",4,2) ,
+    -> ("Shoes", "Bata", 4000, "2023-01-19",3,1) ,
+    -> ("TV", "LG", 20000, "2021-02-22",4,5) ,
+    -> ("Mobile", "Motorola", 39999, "2022-02-21",3,3) ,
+    -> ("Mobile", "Lenovo", 49999, "2023-01-21",4,7); 
+Query OK, 14 rows affected (0.08 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM orders ;
++----+--------+-------------+-------+------------+--------+-------------+
+| id | item   | brand       | price | order_date | rating | customer_id |
++----+--------+-------------+-------+------------+--------+-------------+
+|  1 | Bag    | gucci       | 23434 | 2022-05-23 |      5 |           1 |
+|  2 | Shirt  | polo        |  2000 | 2021-06-30 |      3 |           2 |
+|  3 | Shirt  | cotten_king |  2500 | 2023-02-03 |      4 |           5 |
+|  4 | Pant   | Allen_solly |  3000 | 2023-01-05 |      4 |           6 |
+|  5 | Shoes  | Bata        |  4000 | 2022-02-10 |      3 |           7 |
+|  6 | TV     | LG          | 20000 | 2023-01-21 |      4 |           1 |
+|  7 | Mobile | Motorola    | 39999 | 2023-01-21 |      3 |           6 |
+|  8 | Mobile | Lenovo      | 49999 | 2023-02-23 |      4 |           9 |
+|  9 | Laptop | Dell        | 75000 | 2023-03-01 |      5 |           3 |
+| 10 | Pant   | Allen_solly |  3000 | 2023-01-02 |      4 |           2 |
+| 11 | Shoes  | Bata        |  4000 | 2023-01-19 |      3 |           1 |
+| 12 | TV     | LG          | 20000 | 2021-02-22 |      4 |           5 |
+| 13 | Mobile | Motorola    | 39999 | 2022-02-21 |      3 |           3 |
+| 14 | Mobile | Lenovo      | 49999 | 2023-01-21 |      4 |           7 |
++----+--------+-------------+-------+------------+--------+-------------+
+14 rows in set (0.00 sec)
+
+
+mysql> ALTER TABLE customer DROP order_id ;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM customer INNER JOIN orders ON customer.id=orders.customer_id ;
++----+--------+------------------+----------+----+--------+-------------+-------+------------+--------+-------------+
+| id | name   | email            | phone    | id | item   | brand       | price | order_date | rating | customer_id |
++----+--------+------------------+----------+----+--------+-------------+-------+------------+--------+-------------+
+|  1 | Suraj  | suraj@gmail.com  | 23412341 |  1 | Bag    | gucci       | 23434 | 2022-05-23 |      5 |           1 |
+|  2 | Rohan  | rohan@gmail.com  | 78978988 |  2 | Shirt  | polo        |  2000 | 2021-06-30 |      3 |           2 |
+|  5 | Amar   | amar@gmail.com   | 11223334 |  3 | Shirt  | cotten_king |  2500 | 2023-02-03 |      4 |           5 |
+|  6 | Sujit  | sujit@gmail.com  | 55665566 |  4 | Pant   | Allen_solly |  3000 | 2023-01-05 |      4 |           6 |
+|  7 | Arpit  | arpit@gmail.com  | 12345678 |  5 | Shoes  | Bata        |  4000 | 2022-02-10 |      3 |           7 |
+|  1 | Suraj  | suraj@gmail.com  | 23412341 |  6 | TV     | LG          | 20000 | 2023-01-21 |      4 |           1 |
+|  6 | Sujit  | sujit@gmail.com  | 55665566 |  7 | Mobile | Motorola    | 39999 | 2023-01-21 |      3 |           6 |
+|  9 | Arjun  | arjun@gmail.com  | 23412311 |  8 | Mobile | Lenovo      | 49999 | 2023-02-23 |      4 |           9 |
+|  3 | Ashish | ashish@gmail.com | 45465565 |  9 | Laptop | Dell        | 75000 | 2023-03-01 |      5 |           3 |
+|  2 | Rohan  | rohan@gmail.com  | 78978988 | 10 | Pant   | Allen_solly |  3000 | 2023-01-02 |      4 |           2 |
+|  1 | Suraj  | suraj@gmail.com  | 23412341 | 11 | Shoes  | Bata        |  4000 | 2023-01-19 |      3 |           1 |
+|  5 | Amar   | amar@gmail.com   | 11223334 | 12 | TV     | LG          | 20000 | 2021-02-22 |      4 |           5 |
+|  3 | Ashish | ashish@gmail.com | 45465565 | 13 | Mobile | Motorola    | 39999 | 2022-02-21 |      3 |           3 |
+|  7 | Arpit  | arpit@gmail.com  | 12345678 | 14 | Mobile | Lenovo      | 49999 | 2023-01-21 |      4 |           7 |
++----+--------+------------------+----------+----+--------+-------------+-------+------------+--------+-------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customer INNER JOIN orders ON customer.id=orders.customer_id WHERE month(order_date)=5;
++----+-------+-----------------+----------+----+------+-------+-------+------------+--------+-------------+
+| id | name  | email           | phone    | id | item | brand | price | order_date | rating | customer_id |
++----+-------+-----------------+----------+----+------+-------+-------+------------+--------+-------------+
+|  1 | Suraj | suraj@gmail.com | 23412341 |  1 | Bag  | gucci | 23434 | 2022-05-23 |      5 |           1 |
++----+-------+-----------------+----------+----+------+-------+-------+------------+--------+-------------+
+1 row in set (0.00 sec)
+
+
+

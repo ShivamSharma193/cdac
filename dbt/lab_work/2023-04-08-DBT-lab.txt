@@ -1,0 +1,132 @@
+# Date 2023-04-08 DBT lab
+
+
+# Topics : Trigger, RANK and nested subqueries 
+
+
+1. Create a table named main and a backup table 
+2. Create columns id name marks
+3. If an entry from main table is deleted then it should be copied into the backup table.
+4. Create a trigger on main table so that an entry in main table will trigger an entry 
+in backuptable and an entry in backup table will trigger an entry into the main table .
+5. We want to find the record for given name, Solve using procedures
+
+1. Create main_table and backup_table
+mysql> CREATE TABLE main_table (id int AUTO_INCREMENT, name varchar(30), marks int, PRIMARY KEY(id))
+;
+Query OK, 0 rows affected (0.45 sec)
+
+
+mysql> CREATE TABLE backup_table (id int AUTO_INCREMENT, name varchar(30), marks int, PRIMARY KEY(id)) ;
+Query OK, 0 rows affected (0.50 sec)
+
+
+mysql> CREATE TABLE main_table (id int AUTO_INCREMENT, name varchar(30), marks int, PRIMARY KEY(id))
+;
+Query OK, 0 rows affected (0.45 sec)
+
+
+2. Enter data into main_table
+mysql> insert into main_table values (1, "suraj", 89), (2, "rohan", 90), (3, "pradeep", 98);
+Query OK, 3 rows affected (0.09 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+mysql> select * from main_table;
++----+---------+-------+
+| id | name    | marks |
++----+---------+-------+
+|  1 | suraj   |    89 |
+|  2 | rohan   |    90 |
+|  3 | pradeep |    98 |
+|  4 | nikhita |    99 |
+|  5 | muskan  |    34 |
++----+---------+-------+
+5 rows in set (0.00 sec)
+
+3. Create trigger ------------------------------------------------
+mysql> DELIMITER //
+
+mysql> CREATE Trigger backup_data 
+	> BEFORE DELETE ON main_table 
+	> FOR EACH ROW 
+	> BEGIN  
+	> INSERT INTO backup_table VALUES (OLD.id, OLD.name, OLD.marks) ; 
+	> END//
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> DELETE FROM main_table WHERE id=2 ;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> SELECT * FROM backup_table ;
++----+---------+-------+
+| id | name    | marks |
++----+---------+-------+
+|  2 | rohan   |    90 |
+|  4 | nikhita |    99 |
++----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM main_table ;
++----+---------+-------+
+| id | name    | marks |
++----+---------+-------+
+|  1 | siraj   |    89 |
+|  3 | pradeep |    98 |
+|  4 | nikhita |    99 |
++----+---------+-------+
+3 rows in set (0.00 sec)
+
+4. Select people for each position who have third highest salary
+mysql> SELECT * FROM (SELECT *, RANK() OVER (PARTITION BY Position ORDER BY salary DESC ) AS sal_rank FROM emp) AS sal_table  WHERE sal_rank=3 ;
++----+------------+-----------+--------+----------+------------+--------+----------+
+| id | first_name | last_name | salary | position | DOJ        | Prefix | sal_rank |
++----+------------+-----------+--------+----------+------------+--------+----------+
+| 14 | Sumit      | Thakur    |  57780 | Junior   | 2023-01-19 | Master |        3 |
+|  9 | Indra      | Sarkar    |  80000 | Manager  | 2022-05-21 | Master |        3 |
+| 13 | Jaya       | Shetty    | 100021 | Senior   | 2022-02-12 | Miss   |        3 |
++----+------------+-----------+--------+----------+------------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT *, RANK() OVER (PARTITION BY Position ORDER BY salary DESC ) AS sal_rank FROM emp) AS sal_table  WHERE sal_rank=3 ;
++----+------------+-----------+--------+----------+------------+--------+----------+
+| id | first_name | last_name | salary | position | DOJ        | Prefix | sal_rank |
++----+------------+-----------+--------+----------+------------+--------+----------+
+| 14 | Sumit      | Thakur    |  57780 | Junior   | 2023-01-19 | Master |        3 |
+|  9 | Indra      | Sarkar    |  80000 | Manager  | 2022-05-21 | Master |        3 |
+| 13 | Jaya       | Shetty    | 100021 | Senior   | 2022-02-12 | Miss   |        3 |
++----+------------+-----------+--------+----------+------------+--------+----------+
+3 rows in set (0.00 sec)
+
+5. Copy new enteries from main_table to backup_table 
+mysql> DELIMITER //
+mysql> CREATE Trigger infinite_copy
+    -> AFTER INSERT ON main_table 
+    -> FOR EACH ROW
+    -> BEGIN 
+    -> INSERT INTO backup_table VALUES (NEW.id, NEW.name,NEW.marks) ;
+    -> END //
+Query OK, 0 rows affected (0.11 sec)
+
+6. Copy new enteries from backup_table into main_table
+mysql> CREATE Trigger copy_from_backup AFTER INSERT ON backup_table  FOR EACH ROW BEGIN  INSERT INTO
+main_table VALUES (NEW.id, NEW.name,NEW.marks) ;  END//
+Query OK, 0 rows affected (0.12 sec)
+
+7. Add entery 
+mysql> INSERT INTO main_table VALUES (10, "Teja", 89) ;
+ERROR 1442 (HY000): Can't update table 'main_table' in stored function/trigger because it is already used by statement which invoked this stored function/trigger.
+
+8. Drop Triggers
+mysql> DROP Trigger backup_data;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> DROP Trigger infinite_copy ;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> DROP Trigger copy_from_backup ;
+Query OK, 0 rows affected (0.10 sec)
+
+9. See triggers 
+mysql> SHOW Triggers ;
+Empty set (0.01 sec)

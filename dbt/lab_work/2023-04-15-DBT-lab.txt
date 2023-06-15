@@ -1,0 +1,149 @@
+mysql> CREATE DATABASE rohan_new ;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> USE rohan_new ;
+Database changed
+mysql> CREATE TABLE Brand (
+    -> brand_name varchar(20),
+    -> brand_id int ) ;
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> CREATE TABLE Products (
+    -> product_id int,
+    -> name varchar(20), 
+    -> price int,
+    -> description varchar(1000),
+    -> quantity_remains int ,
+    -> quantity_sold int
+    -> ) ;
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> CREATE TABLE Orders (
+    -> order_id int,
+    -> product_id int,
+    -> quantity int,
+    -> total_price int,
+    -> order_date timestamp
+    -> ) ;
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> CREATE TABLE Sales (
+    -> sales_id int,
+    -> product_id int,
+    -> quantity int,
+    -> total_price int,
+    -> sales_date timestamp
+    -> ) ;
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> INSERT INTO Brand VALUES 
+    -> ("Adidas",1),
+    -> ("Bata",2),
+    -> ("Sparkx",3),
+    -> ("Nike",4),
+    -> ("Redwood",5);
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Products VALUES 
+    -> (1, "Shoes",1999, "Restound",3 ,1),
+    -> (2, "Slippers",2050, "hawaii",4 ,6),
+    -> (3, "Sneakers",1900, "jazz Sneakers",5 ,8),
+    -> (4, "Flats",2999, "Grey Flats",8 ,5),
+    -> (5, "Sandals",1259, "Alaska Sandals",2 ,3),
+    -> (6, "Sneakers",1323, "Denim Sneakers",10 ,20);
+Query OK, 6 rows affected (0.09 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> DELIMITER $ 
+mysql> CREATE PROCEDURE getBrandId(
+    -> IN BN varchar(20), 
+    -> OUT BI int)
+    -> BEGIN 
+    -> SELECT brand_id
+    -> FROM Brand
+    -> WHERE brand_name=BN ;
+    -> END $
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> DELIMITER $ 
+mysql> DROP PROCEDURE IF EXISTS getBrandId;
+    -> CREATE PROCEDURE getBrandId(
+    -> IN BN varchar(20), 
+    -> OUT id int)
+    -> BEGIN 
+    -> SELECT brand_id INTO id
+    -> FROM Brand
+    -> WHERE brand_name=BN ;
+    -> END $
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+
+mysql> CALL getBrandID('Bata',@id) $
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @id $
+
+
+mysql> DELIMITER $
+mysql> CREATE PROCEDURE usingProduct(
+    -> IN p_name varchar(20))
+    -> BEGIN
+    -> DECLARE v_pid int;
+    -> DECLARE v_price int;
+    -> DECLARE v_quant int ;
+    -> SELECT id, price, quantity_remains 
+    -> INTO v_pid, v_price, v_quant
+    -> FROM products
+    -> WHERE name=p_name ;
+    -> END $
+Query OK, 0 rows affected (0.16 sec)
+
+
+mysql> DROP PROCEDURE IF EXISTS usingProduct ;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> DELIMITER $
+mysql> CREATE PROCEDURE usingProduct(
+    -> IN p_name varchar(20))
+    -> BEGIN
+    -> DECLARE v_pid int;
+    -> DECLARE v_price int;
+    -> DECLARE v_quant int ;
+    -> SELECT product_id, price, quantity_remains 
+    -> INTO v_pid, v_price, v_quant
+    -> FROM Products
+    -> WHERE name=p_name ;
+    -> 
+    -> INSERT INTO Sales (
+    -> product_id, total_price, quantity, sales_date)
+    -> VALUES (v_pid, v_price*v_quant, v_quant, NOW()) ;
+    -> 
+    -> UPDATE Products
+    -> SET quantity_remains = quantity_remains -v_quant,
+    -> quantity_sold = quantity_sold + v_quant
+    -> WHERE name=p_name ; 
+    -> 
+    -> END $
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> DELIMITER ;
+mysql> CALL usingProduct('Shoes') ;
+Query OK, 1 row affected (0.21 sec)
+
+mysql> SELECT * FROM Products ;
++------------+----------+-------+----------------+------------------+---------------+
+| product_id | name     | price | description    | quantity_remains | quantity_sold |
++------------+----------+-------+----------------+------------------+---------------+
+|          1 | Shoes    |  1999 | Restound       |                0 |             4 |
+|          2 | Slippers |  2050 | hawaii         |                4 |             6 |
+|          3 | Sneakers |  1900 | jazz Sneakers  |                5 |             8 |
+|          4 | Flats    |  2999 | Grey Flats     |                8 |             5 |
+|          5 | Sandals  |  1259 | Alaska Sandals |                2 |             3 |
+|          6 | Sneakers |  1323 | Denim Sneakers |               10 |            20 |
++------------+----------+-------+----------------+------------------+---------------+
+6 rows in set (0.00 sec)
+
+
