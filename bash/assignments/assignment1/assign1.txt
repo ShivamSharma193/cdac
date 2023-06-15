@@ -1,0 +1,87 @@
+Name : Rohan Dehankar
+PRN : 061
+
+Session1 -----------------------------------------
+1. ls /bin -R
+2. ls -a
+3. ls r*
+4. ls ???
+5. ls *.doc
+6. ls [l-s]*
+7. cp text1 text2
+8. cat text2 >> text1
+9. ls | wc -l # With out hidden files
+   ls -A | wc -l # With hidden files, without including . and ..
+10. ls -l | tee ls.out 
+11. tail -n +10 text1 
+
+Session2 -----------------------------------------
+1. wc -w text1
+2. ls | less
+3. who ; pwd
+4. echo Today is `date +%A,\ %d\ %B\ %y`
+5.
+  a) find . -type f \( -name "*.c" -o -name "*.pl" \)
+  b) find . -type d -perm 755
+  c) find . -type f -perm 655
+  d) find . -type f -num 12122
+  e) find path/to/dir -mtime +365 -print > Old_File
+  f) find /path/to/directory -type f -size 1024+
+
+Session3 -----------------------------------------
+
+1. Using vi editor.
+    a. Create a file "DAtA1.txt"
+     $ vi DATA1.txt
+   
+    b) save the file and exit from the vi editor
+    -> wq! 
+
+    c) Write some text and save it to a file "MyData2.txt"
+    -> echo "This is vi editor" > MyData2.txt
+
+    d) Repeat point (c) but after writing some text dont save and just exit "vi"
+    -> q!  (it won't save any changed data)
+
+2) Create a file using vi editor and enter the following text in it:
+
+   a) save the file without exiting vi
+   -> w 
+
+   b) Display the line number from within vi
+   -> set number
+
+   c) Move the first three lines of the file to the end of the file  (Linux terminal)
+   -> dac@dac-Veriton-M200-H310:~$ sed '1,3{H;d}; ${p;x;s/^\n//}' MyData2.txt 
+      Unix file structure is hierarchical liek an upside down tree.
+      Regular files cannot contain another file,or directory.
+      Directory file contains directory(s) and / or file(s) within it
+      Device files are used to represent physical devices.
+      Symbolic link is an indirect pointer to a file.
+      Unix Unix Unix Unix Unix 
+      Unix is multi user operating system ,Unix is multi tasking operating system
+      Everything on Unix is file.
+ 
+    d) Copy 5th line and paste above the first line.
+    -> 5t0
+
+    e) search the word 'Unix' in forward direction
+    -> /Unix
+
+    f) Search the word 'Unix' in backword dorectin
+    -> ?Unix
+
+    g) Replace all the occurances of the word 'Unix' with UnixOS    (Linux terminal)
+    -> dac@dac-Veriton-M200-H310:~$ sed -e 's/\<Unix\>/Unix OS/I' MyData2.txt 
+      Unix OS is multi user operating system ,Unix is multi tasking operating system
+      Unix OS Unix Unix Unix Unix 
+      Regular files cannot contain another file,or directory.
+      Unix OS Unix Unix Unix Unix 
+      Unix OS is multi user operating system ,Unix is multi tasking operating system
+      Everything on Unix OS is file.
+      Unix OS file structure is hierarchical liek an upside down tree.
+      Regular files cannot contain another file,or directory.
+      Directory file contains directory(s) and / or file(s) within it
+      Device files are used to represent physical devices.
+      Symbolic link is an indirect pointer to a file.
+

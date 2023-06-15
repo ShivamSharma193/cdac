@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            background-color: black;
+            color: white;
+        }
+        fieldset{
+            border-color: blue;
+        }
+        legend{
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+        }
+        button{
+            background-color: blue;
+        }
+
+    </style>
+    <title>Form</title>
+</head>
+<body>
+    <form> 
+        <fieldset>
+            <legend>Name and address</legend>
+            <table >
+                <tr>
+                    <td>
+                        <label for="ssn"> SSN </label> 
+                    </td>
+                    <td> : </td>
+                    <td>
+                    <input type="text" name="ssn" id="ssn"> <br>
+                </td>
+                </tr>
+                 <tr>
+                     <td> 
+                         <label for="fname"> Full Name </label>
+                    </td>
+                    <td> : </td>
+                    <td> 
+                        <input type="text" name="fname" id="fname"> <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>                            
+                            <label for="street"> Street and Number </label>
+                        </td>
+                        <td> : </td>
+                        <td>
+                            <input type="text" name="street" id="street"> <br>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                    <td>
+                        <label for="degree"> Postal Code </label>
+                    </td>
+                    <td> : </td>
+                    <td>
+                        <input type="text" name="postal" id="postal">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="cpi"> City </label> 
+                    </td>
+                    <td> : </td>
+                    <td>
+                        <input type="text" name="city" id="city"> <br> 
+                    </td>
+                </tr>
+            </table>
+        </fieldset> 
+
+        <fieldset>
+        <table>
+                    <legend>Username and Password</legend>
+                <tr>
+                    <td>
+                        <label for="exp"> Username </label>
+                    </td>
+                    <td> : </td>
+                    <td>
+                        <input type="text" name="exp" id="exp"> <br>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label for="uni"> Password </label>
+                    </td>
+                    <td> : </td>
+                    <td>
+                        <input type="text" name="uni" id="uni" > <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td > 
+                        <input type="checkbox" name="pass">
+                        <label for="pass" id="pass"> show password</label>
+
+                </td>
+                </tr>
+        </table>    
+        </fieldset>
+    </form>
+    <button> Registor</button>
+</body>
+</html>

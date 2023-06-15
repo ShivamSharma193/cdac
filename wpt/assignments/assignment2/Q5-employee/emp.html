@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Employee Form</title>
+</head>
+<body>
+    <form>
+        <table border="1" cellspacing="0" cellpadding="2px" cell id="formtable">
+            <tr>
+                <td>Name</td>
+                <td> <input type="text" name="uname" id="uname" class="singlebox"> </td>
+            </tr>
+            <tr>
+                <td>Employee Code</td>
+                <td> <input type="number" name="ecode" id="ecode" class="singlebox" min="0"></td>
+            </tr>
+                <td>Department</td>
+                <td> <input type="radio" name="dept" id="admin" value="admin" >
+                    <label for="admin"> ADMIN</label> <br>
+                    <input type="radio" name="dept" id="hr" value="hr">
+                    <label for="hr"> HR</label> <br>
+                    <input type="radio" name="dept" id="tech" value="tech">
+                    <label for="tech">TECHNICAL</label> <br>
+                    <input type="radio" name="dept" id="accounts" value="accounts">
+                    <label for="accounts" > ACCOUNTS</label>
+                </td>
+            <tr>
+                <td>Date of Joining</td>
+                <td>
+                    <table id="doj">
+                        <tr>
+                            <td> <input type="number" name="date" id="date" class="date" min="1" max="31">/</td> 
+                            <td> <input type="number" name="month" id="month" class="date" min="1" max="12">/</td> 
+                            <td> <input type="number" name="year" id="year" class="date" min="0000" max="9999">/</td> 
+                         </tr>
+                         <tr align="center">
+                            <td> dd </td>
+                            <td> mm</td>
+                            <td>yyyy</td>
+                         </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td> Address</td>
+                <td> <textarea name="address" id="address" cols="40" rows="5"></textarea> </td>
+            </tr>
+            <tr>
+                <td>Training Programs Attended</td>
+                <td> <input type="checkbox" name="prog" id="html">
+                    <label for="html"> HTML/DHTML</label> <br>
+                    <input type="checkbox" name="prog" id="java">
+                    <label for="java"> JAVA</label> <br>
+                    <input type="checkbox" name="prog" id="server">
+                    <label for="server"> CLIENT/SERVER</label> <br>
+                    <input type="checkbox" name="prog" id="msnet">
+                    <label for="msnet"> .NET</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Training Programmes need to attend</td>
+                <td> 
+                    <select name="training" id="training" rows="2" >
+                        <option value="js">JAVA</option>
+                        <option value="jstruts"> JSTRUTS</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Send the information at</td>
+                <td><a href="mailto:empinfo@patni.com">empinfo@patni.com</a></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

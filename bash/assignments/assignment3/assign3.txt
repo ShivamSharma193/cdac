@@ -1,0 +1,85 @@
+# OS Assignment3
+
+
+
+# Q1.  ------------------------------------------------------------------------
+# Keep accepting an input message from the user and keep displaying it 
+# till the user does not type "Bye", not case sensitive, using shell script.
+
+#!/bin/bash
+
+echo "Please Input a message"
+
+read message
+echo "Your Message is $message"
+
+message=`echo $message | tr '[:upper:]' '[:lower:]'`
+
+while [ "$message" != "bye" ]
+do
+        read message
+        message=`echo $message | tr '[:upper:]' '[:lower:]'`
+        echo "Your Message is $message"
+done
+
+
+# Q2. ------------------------------------------------------------------------- 
+# Write a shell script to reverse an integer (e.g 1234 -> 4321)
+
+#!/bin/bash
+
+read -p "Enter an Integer " int
+echo $int | rev
+
+
+# Q3. -------------------------------------------------------------------------
+#Create a looping menu to accept either 1.Simple Interest, 2.Compound Interest, 3.Exit,
+# as the option from the user. If the user selects simple interest, accept principle amount P
+# Time in years n, and rate of interest r. Display simple interest using the formula 
+# Interest = P*N*R/100
+# If the user selected compound interest also accept how many times the interest was calculated 
+# per year T. Display the compound interest using the formula 
+# CI = P*(1+r/n)^(n*)
+
+#!/bin/bash
+
+PS3="Please select Interest rate method "
+
+select method in "Simple Interest" "Compound Interest" "Exit"
+do 
+	echo "You have selected $method"
+break
+done
+
+ 
+
+if [ "$method" == "Simple Interest" ]
+then
+	read -p "Give principal amount:" p
+	read -p "Give % rate of interest:" r
+	read -p "Give no of years:" n		
+	
+	Interest=`echo "scale=4; $p*$r*$n/100" | bc` 
+	echo "Total Interest is $Interest"
+fi
+
+
+if [ "$method" == "Compound Interest" ]
+then
+	read -p "Give principal amount:" p
+	read -p "Give % rate of interest:" r
+	read -p "Give no of years:" n	
+	
+	Interest=`echo " scale=4; $p*(1+($r/100))^($n) " | bc` 
+	echo "Total amount with Interest is $Interest"
+fi
+
+if [ "$method" == "Exit" ]
+then
+	echo "Exited"
+fi
+
+
+
+
+

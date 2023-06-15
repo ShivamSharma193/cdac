@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+         span {
+            color: red;
+        }
+        input {
+            width: 5cm;
+        }
+
+    </style>
+    <title>Feedback</title>
+</head>
+<body>
+    <h1 >Feedback</h1>
+
+    <form>
+        <table>
+            <tr>
+                <td> <label for="problem"> Type of Problem  </label> </td>
+                <td> <input type="text" name="problem" id="problem"></td>
+                
+            </tr>
+            <tr>
+                <td>  <label for="uname"> Username : </label> <span class="astresik"> &nbsp;*</span></td>
+                <td> <input type="text" name="uname" id="uname" required></td>
+            </tr>
+            <tr>
+                <td> <label for="mail"> Email : </label> <span class="astresik"> &nbsp;*</span></td>
+                <td> <input type="email" name="mail" id="mail" required></td>
+            </tr>
+            <tr>
+                <td>  <label for="loc"> Location : </label> <span class="astresik"> &nbsp;*</span></td>
+                <td> <input type="text" name="loc" id="loc" required></td>
+            </tr>
+            <tr>
+                <td> <label for="phone"> Phone : </label>  </td>
+                <td> <input type="tel" name="phone" id="phone" ></td>
+            </tr>
+            <tr>
+                <td>  <label for="description"> Desciption :</label> <span class="astresik"> &nbsp;*</span></td>
+                <td> <input type="text" name="description" id="description" required></td>
+            </tr>
+            <tr>
+                <td> <label for="notify"> Notify me </label></td>
+                <td> <input type="checkbox" name="notify" id="notify"> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="sub" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    Note : Fields marked by astresik are mandatory
+</body>
+</html>
