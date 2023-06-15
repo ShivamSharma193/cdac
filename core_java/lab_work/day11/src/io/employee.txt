@@ -1,0 +1,7 @@
+1 suraj 60000 manager
+2 pradip 70032 junior
+3 ritesh 50065 junior
+4 maruti 30045 senior
+5 mayank 90053 manager
+6 sujit 100054 senior
+7 rohan 80054 junior
