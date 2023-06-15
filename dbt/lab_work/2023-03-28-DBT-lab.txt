@@ -1,0 +1,45 @@
+Q1. Select the empployee who join before 20th data
+mysql> select * from emp where DAY(DOJ)<20 ;
+
+Q2. select eh employee who is the most senior according to joining date
+mysql> select * from emp where DOJ=(SELECT MIN(DOJ) from emp);
+
+Q3. select the employee who has joined in 2020.S 
+mysql>  SELECT * from emp WHERE YEAR(DOJ)=2020 ;
+
+Q4. Insert a  new column "prefix" of type enum ("Mister", "Miss"). 
+mysql> ALTER TABLE emp ADD Prefix enum ('Master', 'Miss');
+
+
+Q5. Select the detail of employee whose name is like "Indra".
+mysql> SELECT * FROM emp WHERE first_name LIKE "Indra" ;
+
+
+Q7. Find record whose last name contains at least 6 characters.
+mysql> SELECT * FROM emp WHERE last_name like "______%" ;
+mysql> SELECT * FROM emp WHERE LENGTH(last_name)>=6 ;
+
+
+Q8. Print the record in ascending order of title and descending order of their last name .
+mysql> SELECT * FROM emp ORDER BY position ASC, last_name DESC ;
+
+Q9. Enter record for prefix
+mysql> UPDATE emp SET Prefix="Master" WHERE id in (1,4,5,6,8,9,10,12,14,16) ;
+mysql> UPDATE emp SET Prefix="Miss" WHERE id NOT in (1,4,5,6,8,9,10,12,14,16) ; 
+
+Q10. Calculate average salary for Manager, Senior and Junior.
+mysql> SELECT position, avg(salary) FROM emp GROUP BY  position ;
+
+Q11. Round the average salary.
+mysql> SELECT position, round(avg(salary),2) FROM emp GROUP BY  position ;
+
+Q12. Calculate the average salary of female employee.
+mysql> SELECT Prefix, AVG(salary) FROM emp GROUP BY Prefix  HAVING Prefix="Miss" ;
+
+Q13. Calculate the average salary based on position.
+mysql> SELECT position , AVG(salary) FROM emp GROUP BY position ;
+
+Q14. Calculate the max salary according to gender.
+mysql> SELECT Prefix , AVG(salary) FROM emp GROUP BY Prefix ;
+
+

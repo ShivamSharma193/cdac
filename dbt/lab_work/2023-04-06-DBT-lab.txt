@@ -1,0 +1,201 @@
+# 2023-04-06 - DBT lab
+
+Topic : Indexes, Temporary tables, Views 
+
+1. Check indexes of a table
+mysql> SHOW INDEXES FROM emp in rohan_suraj ;
+Empty set (0.00 sec)
+
+2. Create index 
+mysql> CREATE INDEX first_name ON emp(last_name) ;
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show indexes from emp
+    -> ;
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| emp   |          1 | first_name |            1 | last_name   | A         |          15 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.04 sec)
+
+3. Drop Index
+mysql> ALTER TABLE emp DROP INDEX id ;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+4.Primary key is always an index 
+
+mysql> ALTER TABLE emp ADD PRIMARY KEY(id) ;
+Query OK, 0 rows affected (1.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW INDEXES FROM emp ;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| emp   |          0 | PRIMARY  |            1 | id          | A         |          16 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.04 sec)
+
+
+5. Create a temporary table 
+mysql> CREATE TEMPORARY TABLE emp_temp AS SELECT * FROM emp ;
+Query OK, 16 rows affected (0.00 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+6. Temp table is not shown in database 
+mysql> SHOW TABLES ;
++-----------------------+
+| Tables_in_rohan_suraj |
++-----------------------+
+| cricket               |
+| customer              |
+| emp                   |
+| football              |
+| orders                |
+| student               |
++-----------------------+
+6 rows in set (0.00 sec)
+## emp_temp is not listed ;
+
+7. Create a view 
+mysql> CREATE VIEW hideManager
+    -> AS SELECT 
+    -> id, first_name, last_name, salary, position, DOJ, Prefix
+    -> FROM emp 
+    -> WHERE position != 'Manager' ;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> SELECT * FROM hideManager ;
++----+------------+-----------+--------+----------+------------+--------+
+| id | first_name | last_name | salary | position | DOJ        | Prefix |
++----+------------+-----------+--------+----------+------------+--------+
+|  1 | Ram        | Singh     |  50000 | Junior   | 2023-01-20 | Master |
+|  3 | Gita       | Kaur      |  40000 | Junior   | 2023-02-15 | Miss   |
+|  5 | Manoj      | Lal       | 100612 | Senior   | 2021-09-21 | Master |
+|  6 | Satya      | Prasad    | 113737 | Senior   | 2020-02-23 | Master |
+|  7 | Bina       | Gosh      |  34000 | Junior   | 2023-03-01 | Miss   |
+|  8 | Bijoy      | Gosh      |  70000 | Senior   | 2021-04-02 | Master |
+| 10 | Prashant   | Patil     |  90099 | Senior   | 2021-05-21 | Master |
+| 11 | Nanda      | Biswas    |  50000 | Junior   | 2022-06-10 | Miss   |
+| 12 | Rajan      | Mahto     |  65000 | Junior   | 2023-08-13 | Master |
+| 13 | Jaya       | Shetty    | 100021 | Senior   | 2022-02-12 | Miss   |
+| 14 | Sumit      | Thakur    |  57780 | Junior   | 2023-01-19 | Master |
+| 15 | Sunanda    | Saha      |  67380 | Junior   | 2023-01-23 | Miss   |
++----+------------+-----------+--------+----------+------------+--------+
+12 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM (SELECT *, DENSE_RANK() OVER (PARTITION BY position ORDER BY salary) as rnk FROM
+ emp ) AS rank_table WHERE rnk=2 ;
++----+------------+-----------+--------+----------+------------+--------+-----+
+| id | first_name | last_name | salary | position | DOJ        | Prefix | rnk |
++----+------------+-----------+--------+----------+------------+--------+-----+
+|  3 | Gita       | Kaur      |  40000 | Junior   | 2023-02-15 | Miss   |   2 |
+|  9 | Indra      | Sarkar    |  80000 | Manager  | 2022-05-21 | Master |   2 |
+| 10 | Prashant   | Patil     |  90099 | Senior   | 2021-05-21 | Master |   2 |
++----+------------+-----------+--------+----------+------------+--------+-----+
+3 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM (SELECT *, DENSE_RANK() OVER (PARTITION BY position ORDER BY salary DESC) as rnk
+ FROM emp ) AS rank_table WHERE rnk=2 ;
++----+------------+-----------+--------+----------+------------+--------+-----+
+| id | first_name | last_name | salary | position | DOJ        | Prefix | rnk |
++----+------------+-----------+--------+----------+------------+--------+-----+
+| 12 | Rajan      | Mahto     |  65000 | Junior   | 2023-08-13 | Master |   2 |
+|  2 | Sunita     | Kumar     |  83833 | Manager  | 2022-05-10 | Miss   |   2 |
+|  5 | Manoj      | Lal       | 100612 | Senior   | 2021-09-21 | Master |   2 |
++----+------------+-----------+--------+----------+------------+--------+-----+
+3 rows in set (0.00 sec)
+
+Q. Create temp table, perm table and view 
+
+mysql> CREATE TEMPORARY TABLE cdac_perf_batch2 (
+    -> pnr int ,
+    -> name varchar(50),
+    -> subject varchar(20),
+    -> marks int ) ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc cdac_perf_batch2
+    -> ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| pnr     | int         | YES  |     | NULL    | NULL  |
+| name    | varchar(50) | YES  |     | NULL    | NULL  |
+| subject | varchar(20) | YES  |     | NULL    | NULL  |
+| marks   | int         | YES  |     | NULL    | NULL  |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO cdac_perf_batch2 VALUES
+    -> (230301, "Ram Singh", "cop", 80),
+    -> (230301, "Ram Singh", "dbt", 85),
+    -> (230301, "Ram Singh", "os", 70),
+    -> (230302, "Gita Kaur", "cop", 81),
+    -> (230302, "Gita Kaur", "dbt", 82),
+    -> (230302, "Gita Kaur", "os", 70),
+    -> (230303, "Manoj lal", "cop", 30),
+    -> (230303, "Manoj lal", "dbt", 45),
+    -> (230303, "Manoj lal", "os", 45),
+    -> (230304, "Nanda Biswas", "dbt", 85),
+    -> (230304, "Nanda Biswas", "cop", 37),
+    -> (230304, "Nanda Biswas", "dbt", 90),
+    -> (230305, "Rajan Mahto", "os", 74),
+    -> (230305, "Rajan Mahto", "cop", 78),
+    -> (230305, "Rajan Mahto", "dbt", 89),
+    -> (230306, "Sunanda Saha", "os", 89),
+    -> (230306, "Sunanda Saha", "cop", 23),
+    -> (230306, "Sunanda Saha", "dbt", 98);
+Query OK, 18 rows affected (0.00 sec)
+Records: 18  Duplicates: 0  Warnings: 0
+
+
+mysql> SELECT *, DENSE_RANK() OVER (PARTITION BY subject ORDER BY marks DESC) as sub_rank FROM cdac_perf_batch2_res
+    -> ;
++--------+--------------+---------+-------+--------+----------+
+| pnr    | name         | subject | marks | Result | sub_rank |
++--------+--------------+---------+-------+--------+----------+
+| 230302 | Gita Kaur    | cop     |    81 | Pass   |        1 |
+| 230301 | Ram Singh    | cop     |    80 | Pass   |        2 |
+| 230305 | Rajan Mahto  | cop     |    78 | Pass   |        3 |
+| 230304 | Nanda Biswas | cop     |    37 | Fail   |        4 |
+| 230303 | Manoj lal    | cop     |    30 | Fail   |        5 |
+| 230306 | Sunanda Saha | cop     |    23 | Fail   |        6 |
+| 230306 | Sunanda Saha | dbt     |    98 | Pass   |        1 |
+| 230304 | Nanda Biswas | dbt     |    90 | Pass   |        2 |
+| 230305 | Rajan Mahto  | dbt     |    89 | Pass   |        3 |
+| 230304 | Nanda Biswas | dbt     |    85 | Pass   |        4 |
+| 230301 | Ram Singh    | dbt     |    85 | Pass   |        4 |
+| 230302 | Gita Kaur    | dbt     |    82 | Pass   |        5 |
+| 230303 | Manoj lal    | dbt     |    45 | Fail   |        6 |
+| 230306 | Sunanda Saha | os      |    89 | Pass   |        1 |
+| 230305 | Rajan Mahto  | os      |    74 | Pass   |        2 |
+| 230302 | Gita Kaur    | os      |    70 | Pass   |        3 |
+| 230301 | Ram Singh    | os      |    70 | Pass   |        3 |
+| 230303 | Manoj lal    | os      |    45 | Fail   |        4 |
++--------+--------------+---------+-------+--------+----------+
+18 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM (SELECT *, DENSE_RANK() OVER (PARTITION BY subject ORDER BY marks DESC) as sub_rank FROM cdac_perf_batch2_res) AS ranked_table WHERE sub_rank BETWEEN 1 AND 3 ;
++--------+--------------+---------+-------+--------+----------+
+| pnr    | name         | subject | marks | Result | sub_rank |
++--------+--------------+---------+-------+--------+----------+
+| 230302 | Gita Kaur    | cop     |    81 | Pass   |        1 |
+| 230301 | Ram Singh    | cop     |    80 | Pass   |        2 |
+| 230305 | Rajan Mahto  | cop     |    78 | Pass   |        3 |
+| 230306 | Sunanda Saha | dbt     |    98 | Pass   |        1 |
+| 230304 | Nanda Biswas | dbt     |    90 | Pass   |        2 |
+| 230305 | Rajan Mahto  | dbt     |    89 | Pass   |        3 |
+| 230306 | Sunanda Saha | os      |    89 | Pass   |        1 |
+| 230305 | Rajan Mahto  | os      |    74 | Pass   |        2 |
+| 230302 | Gita Kaur    | os      |    70 | Pass   |        3 |
+| 230301 | Ram Singh    | os      |    70 | Pass   |        3 |
++--------+--------------+---------+-------+--------+----------+
+10 rows in set (0.01 sec)
