@@ -1,0 +1,15 @@
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.csproj.AssemblyReference.cache
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.GeneratedMSBuildEditorConfig.editorconfig
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.AssemblyInfoInputs.cache
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.AssemblyInfo.cs
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.csproj.CoreCompileInputs.cache
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\bin\Debug\net7.0\EmployeeWithInheritance.exe
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\bin\Debug\net7.0\EmployeeWithInheritance.deps.json
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\bin\Debug\net7.0\EmployeeWithInheritance.runtimeconfig.json
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\bin\Debug\net7.0\EmployeeWithInheritance.dll
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\bin\Debug\net7.0\EmployeeWithInheritance.pdb
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.dll
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\refint\EmployeeWithInheritance.dll
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.pdb
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\EmployeeWithInheritance.genruntimeconfig.cache
+D:\rohan\MS_NET\lab\EmployeeWithInheritance\obj\Debug\net7.0\ref\EmployeeWithInheritance.dll
