@@ -1,0 +1,15 @@
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\bin\Debug\net7.0\JaggedArrays.exe
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\bin\Debug\net7.0\JaggedArrays.deps.json
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\bin\Debug\net7.0\JaggedArrays.runtimeconfig.json
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\bin\Debug\net7.0\JaggedArrays.dll
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\bin\Debug\net7.0\JaggedArrays.pdb
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.csproj.AssemblyReference.cache
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.GeneratedMSBuildEditorConfig.editorconfig
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.AssemblyInfoInputs.cache
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.AssemblyInfo.cs
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.csproj.CoreCompileInputs.cache
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.dll
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\refint\JaggedArrays.dll
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.pdb
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\JaggedArrays.genruntimeconfig.cache
+D:\cdac\dotNET\assignment\Assignment4\JaggedArrays\obj\Debug\net7.0\ref\JaggedArrays.dll

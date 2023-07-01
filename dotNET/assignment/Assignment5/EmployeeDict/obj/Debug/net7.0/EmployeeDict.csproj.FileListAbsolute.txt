@@ -1,0 +1,15 @@
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.csproj.AssemblyReference.cache
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.GeneratedMSBuildEditorConfig.editorconfig
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.AssemblyInfoInputs.cache
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.AssemblyInfo.cs
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.csproj.CoreCompileInputs.cache
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\bin\Debug\net7.0\EmployeeDict.exe
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\bin\Debug\net7.0\EmployeeDict.deps.json
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\bin\Debug\net7.0\EmployeeDict.runtimeconfig.json
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\bin\Debug\net7.0\EmployeeDict.dll
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\bin\Debug\net7.0\EmployeeDict.pdb
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.dll
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\refint\EmployeeDict.dll
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.pdb
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\EmployeeDict.genruntimeconfig.cache
+D:\cdac\dotNET\assignment\Assignment5\EmployeeDict\obj\Debug\net7.0\ref\EmployeeDict.dll
