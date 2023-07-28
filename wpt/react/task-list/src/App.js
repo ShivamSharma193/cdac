@@ -4,7 +4,7 @@ import './App.css';
 import { v4 as uuid } from "uuid";
 import AddTask from "./components/AddTask" ;
 import TaskList from "./components/TaskList";
-import TempList from "./components/testList"
+import Header from "./components/Header"
 function App() {
   // Store tasks in local storage
   const LOCAL_STORAGE_KEY ="tasks" ;
@@ -19,7 +19,7 @@ function App() {
   } ;
 
 
-  const removeTaskHandler = (id) => {
+  const removeTaskHandler = (id) => { // Filter out deleted task
     const newTaskList = tasks.filter((task) => {
       return task.id !== id;
     });
@@ -34,7 +34,9 @@ function App() {
 
   return (
     <div className="App">
+		<Header/>
       <AddTask addTaskHandler={addTaskHandler}/>
+	  <br></br>
       <TaskList tasks={tasks} getTaskId={removeTaskHandler}/> 
     </div>
   );

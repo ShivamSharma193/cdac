@@ -1,20 +1,22 @@
 import React from "react";
 
 const TaskCard = (props) => {
-  const { id, task, duration } = props.task;
+  
+  const { id, task, duration} = props.task;
+  
   return (
-    <div className="item">
-
-      <div className="content">
-        <div className="header">{task}</div>
-        <div>{duration}</div>
-      </div>
-      <i
-        className="trash alternate outline icon"
-        style={{ color: "red", marginTop: "7px" }}
-        onClick={() => props.clickHander(id)}
-      ></i>
-    </div>
+    <tr>
+      <th scope="row">1</th>
+      <td>{task}</td>
+      <td>{duration}</td>
+      <td>
+          <i
+            className="trash alternate outline icon"
+            style={{ color: "red", marginTop: "7px" }}
+            onClick={() => props.clickHander(id)}
+          ></i>
+      </td>
+    </tr>
   );
 };
 

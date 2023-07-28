@@ -19,32 +19,30 @@ class AddTask extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.add}>
-                <div className="form-group">
-                    <label htmlFor="task">Task</label>
-                    <input type="text" 
-                        className="form-control" 
-                        name="task"
-                        id="task" 
-                        placeholder="Task"
-                        value={this.state.task}
-                        onChange={(e) => this.setState({task: e.target.value})}
-                    /> 
-                </div>
-                <div className="form-group">
-                    <label htmlFor="duration">Duration</label>
-                    <input type="text" 
-                        className="form-control" 
-                        name="duration"
-                        id="duration" 
-                        placeholder="Duration" 
-                        value={this.state.duration}
-                        onChange={(e) => this.setState({duration: e.target.value})}
-                    />
-                </div>
-        
-                <button className="btn btn-primary" >Add</button>
+            <div className="ui main">
+                <h2>Add Tasks</h2>
+                <form  className="ui form" onSubmit={this.add}>
+                    <div className="field">
+                        <label>Task</label>
+                        <input type="text" 
+                            name="task"
+                            id="task" 
+                            placeholder="Task"
+                            value={this.state.task}
+                            onChange={(e) => this.setState({task: e.target.value})}
+                        /> 
+                    </div>
+                    <div className="field">
+                        <label htmlFor="duration">Duration</label>
+                        <input type="text" 
+                            name="duration"
+                            id="duration" 
+                            placeholder="Duration" 
+                            value={this.state.duration}
+                            onChange={(e) => this.setState({duration: e.target.value})}
+                        />
+                    </div>
+                    <button className="ui button blue">Add</button>  
                 </form>
             </div>
             
