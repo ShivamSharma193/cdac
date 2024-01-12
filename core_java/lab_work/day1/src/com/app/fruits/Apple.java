@@ -9,12 +9,12 @@ public class Apple extends Fruits {
 	}
 	
 	@Override
-	public String taste() { 		// Present in Fruits class
+	public String taste() { 		
 		return "sweet n sour";
 	}
 
 	
-	public void jam() { 		// Not present in Fruits class
+	public void jam() { 		
 		System.out.println("Making Jam of " + getName());
 	}
 }
