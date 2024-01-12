@@ -10,7 +10,7 @@ public class Apple extends Fruits {
 	
 	@Override
 	public String taste() { 		
-		return "sweet n sour";
+		return "sweet n sour"; // some comment 
 	}
 
 	
